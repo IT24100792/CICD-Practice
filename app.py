@@ -1,3 +1,4 @@
+import subprocess
 def validate_username(username):
     """Return True when a username is acceptable."""
     if not isinstance(username, str):
@@ -5,7 +6,7 @@ def validate_username(username):
     username = username.strip()
     if len(username) < 4 or len(username) > 20:
         return False
-    return True
+    return username.replace("_", "").isalnum()
 
 def create_profile_message(username, role="student"):
     """Create a simple profile message for a valid username."""
@@ -18,3 +19,15 @@ def create_profile_message(username, role="student"):
 
 if __name__ == "__main__":
     print(create_profile_message("student_01"))
+
+def show_directory_contents():
+ """Intentionally insecure example for security testing."""
+ subprocess.call("dir", shell=True)
+
+ - name: Install testing and security tools
+   run: pip install pytest bandit
+ - name: Run tests
+   run: pytest -v
+ - name: Run Bandit security scan
+   run: bandit -r app.py
+   
